@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,22 +11,46 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 
 import java.util.Timer;
 
 
 public class Main extends Application {
 
-    @Override
+
+    long timeStep;
+    boolean scoring = true;
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
         primaryStage.setTitle("Hello World");
-        Button button1 = new Button("Click");
+        Button button1 = new Button("0");
+        //Text txt = new Text(10,0,"Click Score");
         primaryStage.setScene(new Scene(button1, 300, 275));
         primaryStage.show();
-        Timer timer = new Timer();
+        timeStep = System.nanoTime() + 1000000000L;
+        new AnimationTimer() {
+            public void handle(long now) {
+                if (now > timeStep) {
+                    timeStep = now + 1000000000L;
+                    scoring = !scoring;
+                }
+                if (!scoring) {
+                    button1.setText("timer not active");
+
+
+                }
+                else {
+                    button1.setText("timer active");
+
+                }
+               // txt.setText("Score:" + Integer.toString(score));
+
+            }
+        }.start();
         button1.setOnAction(new EventHandler<ActionEvent>() {
             int clicked = 0;
             public void handle(ActionEvent actionEvent) {
