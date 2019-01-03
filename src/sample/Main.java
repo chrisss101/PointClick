@@ -23,6 +23,7 @@ public class Main extends Application {
 
     long timeStep;
     boolean scoring = true;
+    int clicked = 0;
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
@@ -31,15 +32,16 @@ public class Main extends Application {
         //Text txt = new Text(10,0,"Click Score");
         primaryStage.setScene(new Scene(button1, 300, 275));
         primaryStage.show();
-        timeStep = System.nanoTime() + 1000000000L;
+        timeStep = System.nanoTime() + 10000000000L;
+
         new AnimationTimer() {
             public void handle(long now) {
                 if (now > timeStep) {
-                    timeStep = now + 1000000000L;
+                    timeStep = now + 10000000000L;
                     scoring = !scoring;
                 }
                 if (!scoring) {
-                    button1.setText("timer not active");
+                    button1.setText("Amount of clicks:" + clicked);
 
 
                 }
@@ -52,7 +54,7 @@ public class Main extends Application {
             }
         }.start();
         button1.setOnAction(new EventHandler<ActionEvent>() {
-            int clicked = 0;
+
             public void handle(ActionEvent actionEvent) {
                 clicked++;
                 button1.setText(String.valueOf(clicked));
