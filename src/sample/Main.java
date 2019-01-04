@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -29,8 +30,12 @@ public class Main extends Application {
 
         primaryStage.setTitle("Hello World");
         Button button1 = new Button("0");
+
+        Label label1 = new Label("time:");
+        HBox theBox = new HBox(button1,label1);
+        theBox.setSpacing(20);
         //Text txt = new Text(10,0,"Click Score");
-        primaryStage.setScene(new Scene(button1, 300, 275));
+        primaryStage.setScene(new Scene(theBox, 300, 275));
         primaryStage.show();
         timeStep = System.nanoTime() + 10000000000L;
 
@@ -53,6 +58,7 @@ public class Main extends Application {
 
             }
         }.start();
+       
         button1.setOnAction(new EventHandler<ActionEvent>() {
 
             public void handle(ActionEvent actionEvent) {
